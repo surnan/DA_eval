@@ -11,15 +11,16 @@ def print_message(google_doc_url):
 
     rows = html.split("<tr")[2:]    # [2:] start populating 'rows' from second element
 
+    print("======================")
+    print("======================")
     print("Number of rows:", len(rows))
-    print("1 ======================")
-    
+    print("======================")
 
-    for i, row in enumerate(rows[:1]):     #start element 1 (instead of zero) and finish element 5
-        print(f"\n1-ROW {i} --> {row}") 
-        print("")
-        print("")
+    max_x = 0
+    max_y = 0
+    points = []
 
+    for i, row in enumerate(rows):     #start element 1 (instead of zero) and finish element 5
         values = []
 
         for column in row.split("<span")[1:]:
@@ -27,6 +28,54 @@ def print_message(google_doc_url):
             value = after_gt.split("<")[0]
             values.append(value)
 
-        print(values)
+        # print(f"values = {values}")
+
+        x = int(values[0])
+        char = values[1]
+        y = int(values[2])
+        
+        points.append((x,char,y))
+        max_x = max(max_x, x)
+        max_y = max(max_y, y)
+
+    grid = []
+
+    for y in range(max_y + 1):
+        row = []
+
+        for x in range(max_x + 1):
+            row.append(" ")
+
+        grid.append(row)
+
+    for x, char, y in points:
+        grid[y][x] = char
+    
+    # for temp in range(max_x+1):
+    #     grid[0][temp] = "S"
+    #     grid[1][temp] = "T"
+    #     grid[2][temp] = "V"
+    #     grid[3][temp] = "W"
+    #     grid[4][temp] = "X"
+    #     grid[5][temp] = "Y"
+    #     grid[6][temp] = "Z"
+
+    
+    # grid[0][0] = "!"
+    # grid[6][0] = "@"
+
+    # grid[0][max_x] = "#"
+    # grid[6][max_x] = "$"
+
+
+
+
+
+    # for row in grid:
+    for row in reversed(grid):
+        print("".join(row))
+    
+    print(f"max_x = {max_x}")
+    print(f"max_y = {max_y}")
 
 print_message(google_doc_url)
