@@ -15,11 +15,7 @@ def print_message(google_doc_url):
     print("1 ======================")
     
 
-    for i, row in enumerate(rows[:1]):     #start element 1 (instead of zero) and finish element 5
-        print(f"\n1-ROW {i} --> {row}") 
-        print("")
-        print("")
-
+    for i, row in enumerate(rows):     #start element 1 (instead of zero) and finish element 5
         values = []
 
         for column in row.split("<span")[1:]:
@@ -27,6 +23,6 @@ def print_message(google_doc_url):
             value = after_gt.split("<")[0]
             values.append(value)
 
-        print(values)
+        print(f"values = {values}")
 
 print_message(google_doc_url)
